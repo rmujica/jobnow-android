@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width ="match_parent"
+    android:theme="@android:style/Theme.Holo.NoActionBar"
+    android:layout_height ="match_parent"
+    android:orientation = "vertical"
+    android:background="#00bfa5"
+    android:weightSum="1"
+
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:src="@drawable/logo"
+        android:gravity="center_vertical" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageSwitcher
+            android:id="@+id/imageSwitcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageSwitcher>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width ="match_parent"
+            android:layout_height ="230dp"
+            android:background="#49000000"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:weightSum="1"
+            android:baselineAligned="true"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="JobNow"
+                android:id="@+id/TextView2"
+                android:gravity="fill_vertical"
+                android:textColor="#FFFFFF"
+                android:textSize="55dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:typeface="normal"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="trabajo casual , dinero real"
+                android:id="@+id/textView2"
+                android:textIsSelectable="true"
+                android:fontFamily="sans-serif-thin"
+                android:textSize="20dp"
+                android:textColor="#ffffff"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Se parte de la comunidad mas loca y trabaja en café con piernas y completadas bailables!"
+                android:id="@+id/textView3"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textSize="20dp"
+                android:textStyle="italic"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="INGRESAR!"
+            android:background="#00bfa5"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/button"
+            android:layout_gravity="right|bottom"
+            android:layout_weight="0.07"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="goToLogin" />
+
+
+    </FrameLayout>
+
+</LinearLayout>
