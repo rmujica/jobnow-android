@@ -3,17 +3,10 @@
     android:theme="@android:style/Theme.Holo.NoActionBar"
     android:layout_height ="match_parent"
     android:orientation = "vertical"
-    android:background="#00bfa5"
+    android:background="#00a591"
     android:weightSum="1"
 
     >
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:src="@drawable/logo"
-        android:gravity="center_vertical" />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -79,12 +72,13 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="INGRESAR!"
-            android:background="#00bfa5"
-            android:fontFamily="sans-serif-condensed"
+            android:text="@string/arrow"
             android:id="@+id/button"
+            android:background="#00a591"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize = "20dp"
             android:layout_gravity="right|bottom"
             android:layout_weight="0.07"
             android:textColor="#FFFFFF"

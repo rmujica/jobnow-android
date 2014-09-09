@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -60,6 +61,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Action Bar Changes
+        setTitle("Iniciar Sesion");
+        getActionBar().setIcon(R.drawable.jobnowlogo);
+        getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Iniciar Sesion </font>"));
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
