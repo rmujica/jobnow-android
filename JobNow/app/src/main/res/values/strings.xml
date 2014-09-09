@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JobNow</string>
+    <string name="arrow">&#xf061; INGRESAR!</string>
 </resources>

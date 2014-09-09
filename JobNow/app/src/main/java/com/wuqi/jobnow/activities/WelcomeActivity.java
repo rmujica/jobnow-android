@@ -2,10 +2,13 @@ package com.wuqi.jobnow.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
@@ -37,6 +40,16 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        // Action Bar Changes
+        setTitle("");
+        getActionBar().setIcon(R.drawable.logo);
+
+
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+
+        Button button = (Button)findViewById(R.id.button);
+        button.setTypeface(font);
         imageSwitcher = (ImageSwitcher)findViewById(R.id.imageSwitcher);
 
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory(){
