@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,11 +26,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
+import com.wuqi.jobnow.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -146,8 +154,28 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            /*mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);*/
+            JobnowApplication.getInstance().getApi().loginUser(email, password,
+                    new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    mAuthTask = null;
+                    showProgress(false);
+
+                    Toast.makeText(LoginActivity.this, "INGRESASTE", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    mAuthTask = null;
+                    showProgress(false);
+
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
+                    Log.d("com.wuqi.jobnow", error.getMessage());
+                }
+            });
         }
     }
     private boolean isEmailValid(String email) {
