@@ -1,7 +1,7 @@
 package com.wuqi.jobnow.entities;
 
 public class User {
-    String type;
-    String email;
-    String password;
+    public String type;
+    public String email;
+    public String password;
 }

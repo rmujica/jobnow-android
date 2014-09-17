@@ -3,26 +3,28 @@
     package="com.wuqi.jobnow" >
 
     <application
+        android:name=".JobnowApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:name=".JobnowApplication"
         android:theme="@style/Theme.Jobnow" >
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
-
         <activity
             android:name=".activities.WelcomeActivity"
-
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.OffersActivity"
+            android:label="@string/title_activity_offers" >
         </activity>
     </application>
 
