@@ -9,18 +9,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:text="Large Text"
         android:id="@+id/price"
+        android:background="@color/jobnow"
         android:padding="@dimen/activity_horizontal_margin"
-        android:background="@android:color/holo_blue_bright"
         android:gravity="center_horizontal" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
         android:text="New Text"
         android:id="@+id/description"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:background="@android:color/holo_green_light"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:ellipsize="end" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/jobnow"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_ok"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_more"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_no"/>
+
+
+    </LinearLayout>
 </LinearLayout>
