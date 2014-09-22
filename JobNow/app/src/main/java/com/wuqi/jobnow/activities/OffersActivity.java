@@ -27,7 +27,7 @@ public class OffersActivity extends Activity {
         setContentView(R.layout.activity_offers);
 
         // load offers
-        final OffersAdapter adapter = new OffersAdapter();
+        final OffersAdapter adapter = new OffersAdapter(this);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
 
         pager.setAdapter(adapter);

@@ -1,15 +1,20 @@
 package com.wuqi.jobnow.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
+import com.wuqi.jobnow.activities.DetailActivity;
+import com.wuqi.jobnow.activities.LoginActivity;
 import com.wuqi.jobnow.entities.Offer;
 
 import java.util.LinkedList;
@@ -23,6 +28,11 @@ import java.util.List;
 public class OffersAdapter extends PagerAdapter
 {
     private List<Offer> offers = new LinkedList<Offer>();
+    private Context context;
+
+    public OffersAdapter(Context context) {
+        this.context = context;
+    }
 
     /**
      * Get a View that displays the data at the specified position in the data set.
@@ -41,6 +51,16 @@ public class OffersAdapter extends PagerAdapter
 
         TextView price = (TextView) v.findViewById(R.id.price);
         TextView description = (TextView) v.findViewById(R.id.description);
+
+        ImageView info = (ImageView) v.findViewById(R.id.info);
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                JobnowApplication.getInstance().startActivity(intent);
+            }
+        });
 
         if (o != null) {
             price.setText(o.price);

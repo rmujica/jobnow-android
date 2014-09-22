@@ -26,6 +26,14 @@
             android:name=".activities.OffersActivity"
             android:label="@string/title_activity_offers" >
         </activity>
+        <activity
+            android:name=".activities.DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".activities.OffersActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wuqi.jobnow.activities.OffersActivity" />
+        </activity>
     </application>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
