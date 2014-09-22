@@ -58,7 +58,7 @@ public class OffersAdapter extends PagerAdapter
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
-                JobnowApplication.getInstance().startActivity(intent);
+                context.startActivity(intent);
             }
         });
 
