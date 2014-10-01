@@ -49,8 +49,8 @@ public class OffersAdapter extends PagerAdapter
         View v = LayoutInflater.from(JobnowApplication.getInstance())
                 .inflate(R.layout.detail_offer, pager, false);
 
-        TextView price = (TextView) v.findViewById(R.id.price);
-        TextView description = (TextView) v.findViewById(R.id.description);
+        TextView short_description = (TextView) v.findViewById(R.id.price);
+        TextView long_description = (TextView) v.findViewById(R.id.description);
 
         ImageView info = (ImageView) v.findViewById(R.id.info);
 
@@ -63,8 +63,8 @@ public class OffersAdapter extends PagerAdapter
         });
 
         if (o != null) {
-            price.setText(o.price);
-            description.setText(o.description);
+            short_description.setText(o.short_description);
+            long_description.setText(o.long_description);
         } else {
             Log.d("com.wuqi.jobnow", "offer is null in offersadapter");
         }

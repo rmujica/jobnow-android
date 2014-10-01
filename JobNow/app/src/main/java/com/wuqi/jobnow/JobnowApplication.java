@@ -19,7 +19,7 @@ public class JobnowApplication extends Application {
         super.onCreate();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint("https://jobnow.herokuapp.com")
+                .setEndpoint("https://jobnow.herokuapp.com/v2")
                 .build();
 
         api = restAdapter.create(JobnowApi.class);
