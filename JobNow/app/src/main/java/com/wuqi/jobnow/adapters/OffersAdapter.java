@@ -49,22 +49,42 @@ public class OffersAdapter extends PagerAdapter
         View v = LayoutInflater.from(JobnowApplication.getInstance())
                 .inflate(R.layout.detail_offer, pager, false);
 
-        TextView short_description = (TextView) v.findViewById(R.id.price);
-        TextView long_description = (TextView) v.findViewById(R.id.description);
-
+        TextView price = (TextView) v.findViewById(R.id.price);
+        TextView short_description = (TextView) v.findViewById(R.id.short_description);
         ImageView info = (ImageView) v.findViewById(R.id.info);
+        ImageView icon = (ImageView) v.findViewById(R.id.icon_image);
+
 
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("short_description",o.short_description);
+                intent.putExtra("price",o.price);
+                intent.putExtra("long_description",o.long_description);
                 context.startActivity(intent);
             }
         });
 
         if (o != null) {
+            price.setText("$" + o.price);
             short_description.setText(o.short_description);
-            long_description.setText(o.long_description);
+
+            if(o.category.equals("1")){
+                icon.setImageResource(R.drawable.categoria1);
+            }
+            if(o.category.equals("2")){
+                icon.setImageResource(R.drawable.categoria2);
+            }
+            if(o.category.equals("3")){
+                icon.setImageResource(R.drawable.categoria3);
+            }
+            if(o.category.equals("4")){
+                icon.setImageResource(R.drawable.categoria4);
+            }
+            if(o.category.equals("5")){
+                icon.setImageResource(R.drawable.categoria5);
+            }
         } else {
             Log.d("com.wuqi.jobnow", "offer is null in offersadapter");
         }
@@ -116,7 +136,6 @@ public class OffersAdapter extends PagerAdapter
     public Object instantiateItem(ViewGroup container, int position) {
         ViewPager pager = (ViewPager) container;
         View view = getView(position, pager);
-
         pager.addView(view);
 
         return view;

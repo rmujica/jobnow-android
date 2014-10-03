@@ -3,6 +3,7 @@ package com.wuqi.jobnow.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -25,6 +26,9 @@ public class OffersActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offers);
+
+        getActionBar().setIcon(R.drawable.jobnowlogo);
+        getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Ofertas </font>"));
 
         // load offers
         final OffersAdapter adapter = new OffersAdapter(this);

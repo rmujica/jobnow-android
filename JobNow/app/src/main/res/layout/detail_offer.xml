@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent">
 
     <TextView
@@ -10,25 +11,40 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
-        android:textSize="30sp"
+        android:textSize="35dp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
         android:text="Large Text"
         android:id="@+id/price"
         android:background="@color/jobnow"
         android:padding="@dimen/activity_horizontal_margin"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:textIsSelectable="true" />
+
+    <ImageView
+        android:layout_width="204dp"
+        android:layout_height="185dp"
+        android:id="@+id/icon_image"
+        android:src="@drawable/background"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
+        android:textColor="@color/jobnow"
+        android:textSize="40sp"
+        android:fontFamily="sans-serif-condensed"
         android:text="New Text"
-        android:id="@+id/description"
+        android:id="@+id/short_description"
         android:gravity="center_horizontal"
-        android:ellipsize="end" />
+        android:ellipsize="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp" />
 
     <LinearLayout
         android:orientation="horizontal"
