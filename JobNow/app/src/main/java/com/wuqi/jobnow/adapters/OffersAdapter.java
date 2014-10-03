@@ -49,12 +49,14 @@ public class OffersAdapter extends PagerAdapter
         View v = LayoutInflater.from(JobnowApplication.getInstance())
                 .inflate(R.layout.detail_offer, pager, false);
 
+
+       //Get the views elements
         TextView price = (TextView) v.findViewById(R.id.price);
         TextView short_description = (TextView) v.findViewById(R.id.short_description);
         ImageView info = (ImageView) v.findViewById(R.id.info);
         ImageView icon = (ImageView) v.findViewById(R.id.icon_image);
 
-
+        //Button to Activity DetailsActivity with offer attributes as parameters
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,20 +72,26 @@ public class OffersAdapter extends PagerAdapter
             price.setText("$" + o.price);
             short_description.setText(o.short_description);
 
+            //Change Text size according to short_description length
+            if( short_description.length() >= 30){
+                short_description.setTextSize(30);
+            }
+
+             //Change Image according to category
             if(o.category.equals("1")){
-                icon.setImageResource(R.drawable.categoria1);
+                icon.setImageResource(R.drawable.categoria1a);
             }
             if(o.category.equals("2")){
-                icon.setImageResource(R.drawable.categoria2);
+                icon.setImageResource(R.drawable.categoria2a);
             }
             if(o.category.equals("3")){
-                icon.setImageResource(R.drawable.categoria3);
+                icon.setImageResource(R.drawable.categoria3a);
             }
             if(o.category.equals("4")){
-                icon.setImageResource(R.drawable.categoria4);
+                icon.setImageResource(R.drawable.categoria4a);
             }
             if(o.category.equals("5")){
-                icon.setImageResource(R.drawable.categoria5);
+                icon.setImageResource(R.drawable.categoria5a);
             }
         } else {
             Log.d("com.wuqi.jobnow", "offer is null in offersadapter");
