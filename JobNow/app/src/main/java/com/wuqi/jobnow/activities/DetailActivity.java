@@ -1,9 +1,12 @@
 package com.wuqi.jobnow.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import com.wuqi.jobnow.R;
 
 public class DetailActivity extends Activity {
@@ -12,6 +15,24 @@ public class DetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        setTitle("");
+        getActionBar().setIcon(R.drawable.logo);
+
+
+        Intent myIntent = getIntent();
+        String price = myIntent.getStringExtra("price");
+        String shortdescription = myIntent.getStringExtra("short_description");
+        String longdescription = myIntent.getStringExtra("long_description");
+
+        TextView text_price = (TextView)findViewById(R.id.price);
+        TextView short_description = (TextView)findViewById(R.id.short_description);
+        TextView long_description = (TextView)findViewById(R.id.long_description);
+
+        short_description.setText(shortdescription);
+        text_price.setText("$" + price);
+        long_description.setText(longdescription);
+
     }
 
 
