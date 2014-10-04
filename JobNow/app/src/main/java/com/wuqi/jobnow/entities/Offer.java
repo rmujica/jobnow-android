@@ -1,5 +1,7 @@
 package com.wuqi.jobnow.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Offer {
@@ -10,4 +12,5 @@ public class Offer {
     public String price;
     public String price_type;
     public List<String> candidates;
+    @SerializedName("_id") public String id;
 }

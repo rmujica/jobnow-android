@@ -5,9 +5,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -31,6 +33,7 @@ import android.widget.Toast;
 
 import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
+import com.wuqi.jobnow.entities.Constants;
 import com.wuqi.jobnow.entities.User;
 
 import java.util.ArrayList;
@@ -164,7 +167,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                     mAuthTask = null;
                     showProgress(false);
 
-                    Toast.makeText(LoginActivity.this, "INGRESASTE", Toast.LENGTH_LONG).show();
+                    // save user
+                    // are we logged in?
+                    SharedPreferences sharedPref =
+                            getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean(Constants.LOGGED_IN, true);
+                    editor.putString(Constants.USER_ID, user.id);
+                    editor.apply();
 
                     Intent intent = new Intent(LoginActivity.this, OffersActivity.class);
                     startActivity(intent);

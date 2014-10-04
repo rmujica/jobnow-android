@@ -28,4 +28,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:+'
     compile 'com.squareup.retrofit:retrofit:+'
     compile 'com.squareup.okio:okio:+'
+    compile 'com.jakewharton:butterknife:5.1.2'
 }
