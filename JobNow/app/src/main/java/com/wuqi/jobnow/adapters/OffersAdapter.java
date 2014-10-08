@@ -54,6 +54,8 @@ public class OffersAdapter extends PagerAdapter {
         intent.putExtra("short_description", offer.short_description);
         intent.putExtra("price", offer.price);
         intent.putExtra("long_description", offer.long_description);
+        intent.putExtra("lat", offer.lat);
+        intent.putExtra("lng", offer.lng);
         context.startActivity(intent);
     }
 

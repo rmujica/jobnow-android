@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -43,11 +44,12 @@ public class OffersActivity extends Activity {
                 List<Offer> result = offerSearchResult.result;
                 adapter.addOffers(result);
                 Toast.makeText(OffersActivity.this, "Loaded", Toast.LENGTH_LONG).show();
+                Log.d("com.wuqi.jobnow", "loaded offers");
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d("com.wuqi.jobnow", "retrofit error: " +error.getMessage());
             }
         });
     }

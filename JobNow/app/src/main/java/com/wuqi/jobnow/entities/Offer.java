@@ -13,4 +13,6 @@ public class Offer {
     public String price_type;
     public List<String> candidates;
     @SerializedName("_id") public String id;
+    public Double lat;
+    public Double lng;
 }
