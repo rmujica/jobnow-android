@@ -160,6 +160,7 @@ public class OffersAdapter extends PagerAdapter {
      */
     @Override
     public boolean isViewFromObject(View view, Object object) {
+        Log.d("com.wuqi.jobnow", view.toString() + " " + object.toString());
         return view == object;
     }
 
@@ -179,6 +180,7 @@ public class OffersAdapter extends PagerAdapter {
      */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        Log.d("com.wuqi.jobnow", "position: " + String.valueOf(position));
         ViewPager pager = (ViewPager) container;
         View view = getView(position, pager);
         pager.addView(view);
