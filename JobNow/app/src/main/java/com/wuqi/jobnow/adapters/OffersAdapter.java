@@ -73,12 +73,7 @@ public class OffersAdapter extends PagerAdapter {
         JobnowApplication.getInstance().getApi().applyToJob(offer.id, user_id, new Callback<Offer>() {
             @Override
             public void success(Offer offer, Response response) {
-                int index = offers.indexOf(offer);
-                offers.remove(offer);
-                notifyDataSetChanged();
-                pager.setAdapter(null);
-                pager.setAdapter(OffersAdapter.this);
-                pager.setCurrentItem(index);
+                Toast.makeText(context, "Oferta postulada con éxito", Toast.LENGTH_LONG).show();
             }
 
             @Override
