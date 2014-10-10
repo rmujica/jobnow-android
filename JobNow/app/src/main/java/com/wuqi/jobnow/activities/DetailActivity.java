@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -15,14 +16,21 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.wuqi.jobnow.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class DetailActivity extends Activity {
 
     GoogleMap map;
+
+    @InjectView(R.id.scrollView)
+    ScrollView scroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.inject(this);
 
         setTitle("");
         getActionBar().setIcon(R.drawable.logo);

@@ -1,21 +1,28 @@
 package com.wuqi.jobnow.activities;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
-import com.wuqi.jobnow.adapters.OffersAdapter;
+import com.wuqi.jobnow.entities.Constants;
 import com.wuqi.jobnow.entities.Offer;
 import com.wuqi.jobnow.entities.OfferSearchResult;
+import com.wuqi.jobnow.fragments.OfferCardFragment;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -32,6 +39,8 @@ public class OffersActivity extends Activity {
     @InjectView(R.id.progress)
     ProgressBar progress;
 
+    LinkedList<Offer> offers = new LinkedList<Offer>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +51,15 @@ public class OffersActivity extends Activity {
         getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Ofertas</font>"));
 
         // load offers
-        final OffersAdapter adapter = new OffersAdapter(this, pager);
-        pager.setAdapter(adapter);
 
         JobnowApplication.getInstance().getApi().getOffers(new Callback<OfferSearchResult>() {
             @Override
             public void success(OfferSearchResult offerSearchResult, Response response) {
                 List<Offer> result = offerSearchResult.result;
-                adapter.addOffers(result);
+                offers.addAll(result);
+                final OffersAdapter adapter = new OffersAdapter(getFragmentManager());
+                pager.setAdapter(adapter);
+                adapter.setCount(offers.size());
                 progress.setVisibility(View.INVISIBLE);
                 Log.d("com.wuqi.jobnow", "loaded offers");
             }
@@ -75,5 +85,29 @@ public class OffersActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return super.onOptionsItemSelected(item);
+    }
+
+    private class OffersAdapter extends FragmentStatePagerAdapter {
+
+        Integer fragmentCount = 0;
+
+        public void setCount(Integer n) {
+            fragmentCount = n;
+            notifyDataSetChanged();
+        }
+
+        public OffersAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return OfferCardFragment.newInstance(offers.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentCount;
+        }
     }
 }
