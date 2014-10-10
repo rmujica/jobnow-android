@@ -7,7 +7,8 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
@@ -17,33 +18,39 @@ import com.wuqi.jobnow.entities.OfferSearchResult;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class OffersActivity extends Activity {
 
+    @InjectView(R.id.pager)
+    ViewPager pager;
+
+    @InjectView(R.id.progress)
+    ProgressBar progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offers);
+        ButterKnife.inject(this);
 
         getActionBar().setIcon(R.drawable.jobnowlogo);
-        getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Ofertas </font>"));
+        getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Ofertas</font>"));
 
         // load offers
-        final OffersAdapter adapter = new OffersAdapter(this);
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
-
+        final OffersAdapter adapter = new OffersAdapter(this, pager);
         pager.setAdapter(adapter);
-
 
         JobnowApplication.getInstance().getApi().getOffers(new Callback<OfferSearchResult>() {
             @Override
             public void success(OfferSearchResult offerSearchResult, Response response) {
                 List<Offer> result = offerSearchResult.result;
                 adapter.addOffers(result);
-                Toast.makeText(OffersActivity.this, "Loaded", Toast.LENGTH_LONG).show();
+                progress.setVisibility(View.INVISIBLE);
                 Log.d("com.wuqi.jobnow", "loaded offers");
             }
 
@@ -67,10 +74,6 @@ public class OffersActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -36,6 +36,8 @@ import retrofit.client.Response;
  * @author Sebastian Kaspari <sebastian@androidzeitgeist.com>
  */
 public class OffersAdapter extends PagerAdapter {
+    private final ViewPager pager;
+
     @InjectView(R.id.price)
     TextView price;
 
@@ -60,7 +62,7 @@ public class OffersAdapter extends PagerAdapter {
     }
 
     @OnClick(R.id.ok)
-    public void ok(ImageView view) {
+    public void ok(final ImageView view) {
         // are we logged in?
         SharedPreferences sharedPref =
                 context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
@@ -71,8 +73,12 @@ public class OffersAdapter extends PagerAdapter {
         JobnowApplication.getInstance().getApi().applyToJob(offer.id, user_id, new Callback<Offer>() {
             @Override
             public void success(Offer offer, Response response) {
+                int index = offers.indexOf(offer);
                 offers.remove(offer);
                 notifyDataSetChanged();
+                pager.setAdapter(null);
+                pager.setAdapter(OffersAdapter.this);
+                pager.setCurrentItem(index);
             }
 
             @Override
@@ -86,8 +92,9 @@ public class OffersAdapter extends PagerAdapter {
     private Context context;
     private Offer offer;
 
-    public OffersAdapter(Context context) {
+    public OffersAdapter(Context context, ViewPager pager) {
         this.context = context;
+        this.pager = pager;
     }
 
     /**
