@@ -52,7 +52,7 @@ public class OffersActivity extends Activity implements
         getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Ofertas</font>"));
 
         // load offers
-        adapter = new OffersAdapter(this, pager);
+        adapter = new OffersAdapter(this);
         pager.setAdapter(adapter);
 
         locationClient = new LocationClient(this, this, this);

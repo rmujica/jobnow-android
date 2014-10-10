@@ -36,7 +36,6 @@ import retrofit.client.Response;
  * @author Sebastian Kaspari <sebastian@androidzeitgeist.com>
  */
 public class OffersAdapter extends PagerAdapter {
-    private final ViewPager pager;
 
     @InjectView(R.id.price)
     TextView price;
@@ -47,49 +46,18 @@ public class OffersAdapter extends PagerAdapter {
     @InjectView(R.id.info)
     ImageView info;
 
+    @InjectView(R.id.ok)
+    ImageView ok;
+
     @InjectView(R.id.icon_image)
     ImageView icon;
-
-    @OnClick(R.id.info)
-    public void getMoreInfo(ImageView view) {
-        Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra("short_description", offer.short_description);
-        intent.putExtra("price", offer.price);
-        intent.putExtra("long_description", offer.long_description);
-        intent.putExtra("lat", offer.lat);
-        intent.putExtra("lng", offer.lng);
-        context.startActivity(intent);
-    }
-
-    @OnClick(R.id.ok)
-    public void ok(final ImageView view) {
-        // are we logged in?
-        SharedPreferences sharedPref =
-                context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-        String user_id = sharedPref.getString(Constants.USER_ID, "");
-
-        if (user_id.isEmpty()) return;
-
-        JobnowApplication.getInstance().getApi().applyToJob(offer.id, user_id, new Callback<Offer>() {
-            @Override
-            public void success(Offer offer, Response response) {
-                Toast.makeText(context, "Oferta postulada con éxito", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-    }
 
     private List<Offer> offers = new LinkedList<Offer>();
     private Context context;
     private Offer offer;
 
-    public OffersAdapter(Context context, ViewPager pager) {
+    public OffersAdapter(Context context) {
         this.context = context;
-        this.pager = pager;
     }
 
     /**
@@ -103,6 +71,7 @@ public class OffersAdapter extends PagerAdapter {
     public View getView(int position, ViewPager pager) {
         // USE HOLDER VIEW
         offer = offers.get(position);
+        Log.d("co.wuqi.jobnow", "this position: " + String.valueOf(position));
 
         View v = LayoutInflater.from(JobnowApplication.getInstance())
                 .inflate(R.layout.detail_offer, pager, false);
@@ -115,7 +84,7 @@ public class OffersAdapter extends PagerAdapter {
 
             //Change Text size according to short_description length
             if( short_description.length() >= 30){
-                short_description.setTextSize(30);
+                short_description.setTextSize(20);
             }
 
              //Change Image according to category
@@ -137,6 +106,43 @@ public class OffersAdapter extends PagerAdapter {
         } else {
             Log.d("com.wuqi.jobnow", "offer is null in offersadapter");
         }
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("short_description", offer.short_description);
+                intent.putExtra("price", offer.price);
+                intent.putExtra("long_description", offer.long_description);
+                intent.putExtra("lat", offer.lat);
+                intent.putExtra("lng", offer.lng);
+                context.startActivity(intent);
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // are we logged in?
+                SharedPreferences sharedPref =
+                        context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                String user_id = sharedPref.getString(Constants.USER_ID, "");
+
+                if (user_id.isEmpty()) return;
+
+                JobnowApplication.getInstance().getApi().applyToJob(offer.id, user_id, new Callback<Offer>() {
+                    @Override
+                    public void success(Offer offer, Response response) {
+                        Toast.makeText(context, "Oferta postulada con éxito", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+            }
+        });
 
         return v;
     }
