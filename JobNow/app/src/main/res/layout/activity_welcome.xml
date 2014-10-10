@@ -25,8 +25,7 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:weightSum="1"
-            android:baselineAligned="true"
-            >
+            android:baselineAligned="true">
 
             <TextView
                 android:layout_width="match_parent"
@@ -47,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="trabajo casual , dinero real"
+                android:text="trabajo casual, dinero real"
                 android:id="@+id/textView2"
                 android:textIsSelectable="true"
                 android:fontFamily="sans-serif-thin"
@@ -60,11 +59,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Se parte de la comunidad mas loca y trabaja en café con piernas y completadas bailables!"
+                android:text="Deja que los trabajos vengan a ti. ¿Estás listo para ganar plata?"
                 android:id="@+id/textView3"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:textSize="20dp"
                 android:textStyle="italic"
                 android:textColor="#FFFFFF" />
@@ -80,7 +79,6 @@
             android:fontFamily="sans-serif-condensed"
             android:textSize = "20dp"
             android:layout_gravity="right|bottom"
-            android:layout_weight="0.07"
             android:textColor="#FFFFFF"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"

@@ -10,6 +10,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface JobnowApi {
     @FormUrlEncoded
@@ -25,5 +26,5 @@ public interface JobnowApi {
                     Callback<Offer> cb);
 
     @GET("/offers")
-    void getOffers(Callback<OfferSearchResult> cb);
+    void getOffers(@Query("l") String latlng, Callback<OfferSearchResult> cb);
 }

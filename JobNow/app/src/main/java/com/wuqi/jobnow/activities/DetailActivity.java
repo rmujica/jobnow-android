@@ -7,9 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.LatLng;
 import com.wuqi.jobnow.R;
 
 public class DetailActivity extends Activity {
+
+    GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +32,13 @@ public class DetailActivity extends Activity {
         String price = myIntent.getStringExtra("price");
         String shortdescription = myIntent.getStringExtra("short_description");
         String longdescription = myIntent.getStringExtra("long_description");
+        Double lat = myIntent.getDoubleExtra("lat", 0.0);
+        Double lng = myIntent.getDoubleExtra("lng", 0.0);
+
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        MapsInitializer.initialize(this);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 14);
+        map.animateCamera(update);
 
         TextView text_price = (TextView)findViewById(R.id.price);
         TextView short_description = (TextView)findViewById(R.id.short_description);
@@ -48,10 +63,6 @@ public class DetailActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -76,7 +76,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         // Action Bar Changes
         setTitle("Iniciar Sesion");
         getActionBar().setIcon(R.drawable.jobnowlogo);
-        getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Iniciar Sesion </font>"));
+        getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Iniciar Sesión</font>"));
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
