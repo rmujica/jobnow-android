@@ -1,213 +1,48 @@
 package com.wuqi.jobnow.adapters;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
-import com.wuqi.jobnow.activities.DetailActivity;
-import com.wuqi.jobnow.activities.LoginActivity;
-import com.wuqi.jobnow.entities.Constants;
 import com.wuqi.jobnow.entities.Offer;
+import com.wuqi.jobnow.fragments.OfferFragment;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+public class OffersAdapter extends FragmentStatePagerAdapter {
 
-/**
- * Implementation of {@link PagerAdapter} that represents each page as a {@link View}.
- *
- * @author Sebastian Kaspari <sebastian@androidzeitgeist.com>
- */
-public class OffersAdapter extends PagerAdapter {
-
-    @InjectView(R.id.price)
-    TextView price;
-
-    @InjectView(R.id.short_description)
-    TextView short_description;
-
-    @InjectView(R.id.info)
-    ImageView info;
-
-    @InjectView(R.id.ok)
-    ImageView ok;
-
-    @InjectView(R.id.icon_image)
-    ImageView icon;
-
+    private Integer total = 0;
     private List<Offer> offers = new LinkedList<Offer>();
-    private Context context;
-    private Offer offer;
+    private FragmentManager fragmentManager;
 
-    public OffersAdapter(Context context) {
-        this.context = context;
+    public OffersAdapter(FragmentManager fm) {
+        super(fm);
+        this.fragmentManager = fm;
     }
 
-    /**
-     * Get a View that displays the data at the specified position in the data set.
-     *
-     * @param position The position of the item within the adapter's data set of the item whose view we want.
-     * @param pager    The ViewPager that this view will eventually be attached to.
-     *
-     * @return A View corresponding to the data at the specified position.
-     */
-    public View getView(int position, ViewPager pager) {
-        // USE HOLDER VIEW
-        offer = offers.get(position);
-        Log.d("co.wuqi.jobnow", "this position: " + String.valueOf(position));
-
-        View v = LayoutInflater.from(JobnowApplication.getInstance())
-                .inflate(R.layout.detail_offer, pager, false);
-
-        ButterKnife.inject(this, v);
-
-        if (offer != null) {
-            price.setText("$" + offer.price);
-            short_description.setText(offer.short_description);
-
-            //Change Text size according to short_description length
-            if( short_description.length() >= 30){
-                short_description.setTextSize(20);
-            }
-
-             //Change Image according to category
-            if(offer.category.equals("1")){
-                icon.setImageResource(R.drawable.categoria1a);
-            }
-            if(offer.category.equals("2")){
-                icon.setImageResource(R.drawable.categoria2a);
-            }
-            if(offer.category.equals("3")){
-                icon.setImageResource(R.drawable.categoria3a);
-            }
-            if(offer.category.equals("4")){
-                icon.setImageResource(R.drawable.categoria4a);
-            }
-            if(offer.category.equals("5")){
-                icon.setImageResource(R.drawable.categoria5a);
-            }
-        } else {
-            Log.d("com.wuqi.jobnow", "offer is null in offersadapter");
-        }
-
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("short_description", offer.short_description);
-                intent.putExtra("price", offer.price);
-                intent.putExtra("long_description", offer.long_description);
-                intent.putExtra("lat", offer.lat);
-                intent.putExtra("lng", offer.lng);
-                context.startActivity(intent);
-            }
-        });
-
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // are we logged in?
-                SharedPreferences sharedPref =
-                        context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-                String user_id = sharedPref.getString(Constants.USER_ID, "");
-
-                if (user_id.isEmpty()) return;
-
-                JobnowApplication.getInstance().getApi().applyToJob(offer.id, user_id, new Callback<Offer>() {
-                    @Override
-                    public void success(Offer offer, Response response) {
-                        Toast.makeText(context, "Oferta postulada con éxito", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-
-                    }
-                });
-            }
-        });
-
-        return v;
-    }
-
-    public void addOffers(List<Offer> offers) {
-        boolean changed = false;
-        for (Offer o : offers) {
-            if (!this.offers.contains(o)) {
-                this.offers.add(o);
-                changed = true;
-            }
-        }
-
-        if (changed) notifyDataSetChanged();
-    }
-
-    /**
-     * Determines whether a page View is associated with a specific key object as
-     * returned by instantiateItem(ViewGroup, int).
-     *
-     * @param view   Page View to check for association with object
-     * @param object Object to check for association with view
-     *
-     * @return true if view is associated with the key object object.
-     */
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        Log.d("com.wuqi.jobnow", view.toString() + " " + object.toString());
-        return view == object;
+    public Fragment getItem(int position) {
+        String name = makeFragmentName(R.id.pager, position);
+        Fragment f = fragmentManager.findFragmentByTag(name);
+        if (f == null)
+            f = OfferFragment.newInstance(offers.get(position));
+        return f;
     }
 
     @Override
     public int getCount() {
-        return offers.size();
+        return total;
     }
 
-    /**
-     * Create the page for the given position.
-     *
-     * @param container The containing View in which the page will be shown.
-     * @param position  The page position to be instantiated.
-     *
-     * @return Returns an Object representing the new page. This does not need
-     *         to be a View, but can be some other container of the page.
-     */
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        Log.d("com.wuqi.jobnow", "position: " + String.valueOf(position));
-        ViewPager pager = (ViewPager) container;
-        View view = getView(position, pager);
-        pager.addView(view);
-
-        return view;
+    public void addOffers(List<Offer> offers) {
+        this.offers.addAll(offers);
+        this.total = this.offers.size();
+        notifyDataSetChanged();
     }
 
-    /**
-     * Remove a page for the given position.
-     *
-     * @param container The containing View from which the page will be removed.
-     * @param position  The page position to be removed.
-     * @param view      The same object that was returned by instantiateItem(View, int).
-     */
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object view) {
-        ((ViewPager) container).removeView((View) view);
+    private static String makeFragmentName(int viewId, int index) {
+        return "android:switcher:" + viewId + ":" + index;
     }
-
 }

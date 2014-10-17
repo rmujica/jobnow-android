@@ -16,7 +16,7 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
-import com.wuqi.jobnow.adapters.OffersFragmentAdapter;
+import com.wuqi.jobnow.adapters.OffersAdapter;
 import com.wuqi.jobnow.entities.Offer;
 import com.wuqi.jobnow.entities.OfferSearchResult;
 
@@ -40,7 +40,7 @@ public class OffersActivity extends Activity implements
 
     Location location;
     LocationClient locationClient;
-    private OffersFragmentAdapter adapter;
+    private OffersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class OffersActivity extends Activity implements
         getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Ofertas</font>"));
 
         // load offers
-        adapter = new OffersFragmentAdapter(getFragmentManager());
+        adapter = new OffersAdapter(getFragmentManager());
         pager.setAdapter(adapter);
 
         locationClient = new LocationClient(this, this, this);
