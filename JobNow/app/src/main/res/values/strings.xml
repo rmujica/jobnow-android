@@ -9,5 +9,6 @@
     <string name="title_activity_detail">Offer Detail</string>
     <string name="title_activity_my_list">MyListActivity</string>
     <string name="title_activity_my_profile">MyProfileActivity</string>
+    <string name="R.string.cant_enter_business_type">No puedes ingresar a la aplicación si eres un usuario tipo empleador.</string>
 
 </resources>

@@ -167,6 +167,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                     mAuthTask = null;
                     showProgress(false);
 
+                    // check if user is type business
+                    if (user.type.equals("b")) {
+                        // reject login
+                        mEmailView.setError(getString(R.string.R_string_cant_enter_business_type));
+                        mEmailView.requestFocus();
+                        return;
+                    }
+
                     // save user
                     // are we logged in?
                     SharedPreferences sharedPref =
