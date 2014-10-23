@@ -1,6 +1,9 @@
 package com.wuqi.jobnow.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -66,6 +69,7 @@ public class OffersActivity extends Activity implements
 
     @Override
     public void onStop() {
+        adapter.clearList();
         locationClient.disconnect();
         super.onStop();
     }
@@ -82,8 +86,27 @@ public class OffersActivity extends Activity implements
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return super.onOptionsItemSelected(item);
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId()){
+            case R.id.mylist:
+                goToListLayout();
+            break;
+            case R.id.myProfile:
+                goToMyProfile();
+                break;
+        }
+        return true;
     }
+
+    private void goToListLayout(){
+        Intent i = new Intent(this, MyListActivity.class);
+        startActivity(i);
+    }
+    private void goToMyProfile(){
+        Intent i = new Intent(this, MyProfileActivity.class);
+        startActivity(i);
+    }
+
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -111,7 +134,7 @@ public class OffersActivity extends Activity implements
 
     @Override
     public void onDisconnected() {
-
+        adapter.clearList();
     }
 
     @Override

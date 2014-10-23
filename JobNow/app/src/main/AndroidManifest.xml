@@ -10,10 +10,11 @@
         android:theme="@style/Theme.Jobnow" >
         <activity
             android:name=".activities.EntryActivity"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:noHistory="true" >
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,15 +38,23 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wuqi.jobnow.activities.OffersActivity" />
-
         </activity>
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDp5H-WHcjaMg4unTROG0E2h2lCxSlFi3s"/>
-
+            android:value="AIzaSyDp5H-WHcjaMg4unTROG0E2h2lCxSlFi3s" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".activities.MyListActivity"
+            android:label="@string/title_activity_my_list" >
+        </activity>
+        <activity
+            android:name=".activities.MyProfileActivity"
+            android:label="@string/title_activity_my_profile" >
+        </activity>
     </application>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
