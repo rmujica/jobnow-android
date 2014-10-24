@@ -87,14 +87,13 @@ public class MyProfileActivity extends Activity implements
         final String id = "5437f39d7a248b0002648ad3";
         location = locationClient.getLastLocation();
 
-        JobnowApplication.getInstance().getApi().getUsers(id, new Callback<UserSearchResult>() {
+        JobnowApplication.getInstance().getApi().getUsers(id, new Callback<User>() {
 
             @Override
-            public void success(UserSearchResult userSearchResult, Response response) {
+            public void success(User user, Response response) {
                 System.out.println("EXITO!!");
-                List<User> result = userSearchResult.result;
                 //IMPRIME NULO
-                System.out.println(result);
+                System.out.println(user.email);
                 //adapter.addUser(result);
                 Log.d("com.wuqi.jobnow", "loaded users");
 

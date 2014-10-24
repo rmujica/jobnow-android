@@ -30,6 +30,6 @@ public interface JobnowApi {
     void getOffers(@Query("l") String latlng, Callback<OfferSearchResult> cb);
 
     @GET("/users/{user}")
-    void getUsers(@Path("user") String _id, Callback<UserSearchResult> cb);
+    void getUsers(@Path("user") String _id, Callback<User> cb);
 
 }
