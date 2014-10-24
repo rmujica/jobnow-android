@@ -3,6 +3,7 @@ package com.wuqi.jobnow.api;
 import com.wuqi.jobnow.entities.Offer;
 import com.wuqi.jobnow.entities.OfferSearchResult;
 import com.wuqi.jobnow.entities.User;
+import com.wuqi.jobnow.entities.UserSearchResult;
 
 import retrofit.Callback;
 import retrofit.http.Field;
@@ -29,8 +30,6 @@ public interface JobnowApi {
     void getOffers(@Query("l") String latlng, Callback<OfferSearchResult> cb);
 
     @GET("/users/{user}")
-    void getUser(@Path("user") String user_id, Callback<User> cb);
+    void getUsers(@Path("user") String _id, Callback<UserSearchResult> cb);
 
-    @GET("/offers")
-    void getFilterOffers(@Query("l") String id, Callback<OfferSearchResult> cb);
 }

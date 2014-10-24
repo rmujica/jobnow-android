@@ -83,23 +83,21 @@ public class MyProfileActivity extends Activity implements
     public void onConnected(Bundle bundle) {
         location = locationClient.getLastLocation();
 
-        final String id = "5437f3d77a248b0002648ad5";
+        //ID DE IGNACIO ESPINOZA
+        final String id = "5437f39d7a248b0002648ad3";
         location = locationClient.getLastLocation();
 
-
-        // get users by location
-        String latlng = "%f,%f";
-        latlng = String.format(latlng, location.getLatitude(), location.getLongitude());
-        JobnowApplication.getInstance().getApi().getUsers(latlng, new Callback<UserSearchResult>() {
+        JobnowApplication.getInstance().getApi().getUsers(id, new Callback<UserSearchResult>() {
 
             @Override
             public void success(UserSearchResult userSearchResult, Response response) {
-                System.out.println("EXITOOOOOOOOOOO");
-                //List<User> result = userSearchResult.result;
-                //adapter.addFilterOffers(result, id);
+                System.out.println("EXITO!!");
+                List<User> result = userSearchResult.result;
+                //IMPRIME NULO
+                System.out.println(result);
+                //adapter.addUser(result);
                 Log.d("com.wuqi.jobnow", "loaded users");
-                //modifyOffersList(adapter.getTotal());
-                //populateListView();
+
             }
 
             @Override
