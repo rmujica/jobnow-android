@@ -1,7 +1,9 @@
 package com.wuqi.jobnow.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.google.android.gms.location.LocationClient;
 import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
 import com.wuqi.jobnow.adapters.OffersAdapter;
+import com.wuqi.jobnow.entities.Constants;
 import com.wuqi.jobnow.entities.Offer;
 import com.wuqi.jobnow.entities.OfferSearchResult;
 
@@ -51,6 +54,10 @@ public class MyListActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
+
+        // Action Bar Changes
+        setTitle("");
+        getActionBar().setIcon(R.drawable.logo);
 
         adapter = new OffersAdapter(getFragmentManager());
         locationClient = new LocationClient(this, this, this);
@@ -96,7 +103,6 @@ public class MyListActivity extends Activity implements
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            System.out.println("HOLAAAAqweqwe");
             //Make sure we have a view to work with( may have been given null)
             View itemView = convertView;
             if(itemView == null){
@@ -175,7 +181,10 @@ public class MyListActivity extends Activity implements
     public void onConnected(Bundle bundle) {
         location = locationClient.getLastLocation();
 
-        final String id = "5437f3d77a248b0002648ad5";
+        SharedPreferences sharedPref =
+                getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+
+        final String id = sharedPref.getString(Constants.USER_ID,"nulleitor");
         location = locationClient.getLastLocation();
 
         myOffers.clear();

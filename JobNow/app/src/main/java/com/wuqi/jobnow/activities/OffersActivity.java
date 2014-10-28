@@ -94,6 +94,9 @@ public class OffersActivity extends Activity implements
             case R.id.myProfile:
                 goToMyProfile();
                 break;
+            case R.id.search:
+                goToSearch();
+                break;
         }
         return true;
     }
@@ -102,6 +105,12 @@ public class OffersActivity extends Activity implements
         Intent i = new Intent(this, MyListActivity.class);
         startActivity(i);
     }
+
+    private void goToSearch(){
+        Intent i = new Intent(this, SearchActivity.class);
+        startActivity(i);
+    }
+
     private void goToMyProfile(){
         Intent i = new Intent(this, MyProfileActivity.class);
         startActivity(i);

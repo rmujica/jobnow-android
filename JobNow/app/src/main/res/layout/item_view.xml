@@ -20,10 +20,11 @@
         android:id="@+id/item_textView"
         android:layout_gravity="center_horizontal"
         android:layout_toEndOf="@+id/item_imageView"
-        android:textSize="18dp"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-light"
         android:layout_alignBottom="@+id/item_imageView"
         android:layout_toRightOf="@+id/item_imageView"
-        android:layout_marginLeft="23dp"
+        android:layout_marginLeft="18dp"
         android:layout_marginBottom="21dp" />
 </RelativeLayout
     >

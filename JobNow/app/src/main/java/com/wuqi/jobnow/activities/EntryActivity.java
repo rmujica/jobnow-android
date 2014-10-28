@@ -27,6 +27,7 @@ public class EntryActivity extends Activity {
         } else {
             // load offers activity
             Intent intent = new Intent(this, OffersActivity.class);
+            System.out.println("EL ID ES : " + sharedPref.getString(Constants.USER_ID,"nulleitor"));
             startActivity(intent);
             finish();
         }

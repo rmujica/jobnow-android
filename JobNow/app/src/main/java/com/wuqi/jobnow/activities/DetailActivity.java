@@ -3,8 +3,10 @@ package com.wuqi.jobnow.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -48,8 +50,20 @@ public class DetailActivity extends Activity {
         text_price.setText("$" + price);
         long_description.setText(longdescription);
 
-    }
+        //Set ScrollView start position
+        final ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
+        System.out.println("FUNCIONA O NO FUNCIONA LA TONTERA");
+        Handler h = new Handler();
 
+        h.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                sv.smoothScrollTo(0, 450);
+            }
+        }, 10);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

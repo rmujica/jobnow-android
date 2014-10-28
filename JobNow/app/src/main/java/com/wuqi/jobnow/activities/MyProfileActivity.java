@@ -1,11 +1,17 @@
 package com.wuqi.jobnow.activities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -14,6 +20,7 @@ import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
 import com.wuqi.jobnow.adapters.OffersAdapter;
 import com.wuqi.jobnow.adapters.UsersAdapter;
+import com.wuqi.jobnow.entities.Constants;
 import com.wuqi.jobnow.entities.Offer;
 import com.wuqi.jobnow.entities.OfferSearchResult;
 import com.wuqi.jobnow.entities.User;
@@ -22,6 +29,8 @@ import com.wuqi.jobnow.entities.UserSearchResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -35,17 +44,37 @@ public class MyProfileActivity extends Activity implements
 
     List<User> myUsers = new ArrayList<User>();
 
+    @InjectView(R.id.progress)
+    ProgressBar progress;
+
     private UsersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+        ButterKnife.inject(this);
+        // Action Bar Changes
+        setTitle("");
+        getActionBar().setIcon(R.drawable.logo);
 
         adapter = new UsersAdapter();
         locationClient = new LocationClient(this, this, this);
     }
 
+    public void modifyLayout(User user){
+        TextView full_name = (TextView) findViewById(R.id.full_name);
+        TextView mail = (TextView) findViewById(R.id.email);
+        ImageView profile_image = (ImageView) findViewById(R.id.imageView);
+
+        full_name.setText(user.first_name + " " + user.last_name );
+        mail.setText(user.email );
+        progress.setVisibility(View.INVISIBLE);
+        full_name.setVisibility(View.VISIBLE);
+        mail.setVisibility(View.VISIBLE);
+        profile_image.setVisibility(View.VISIBLE);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,7 +103,6 @@ public class MyProfileActivity extends Activity implements
 
     @Override
     public void onStop() {
-
         locationClient.disconnect();
         super.onStop();
     }
@@ -83,8 +111,11 @@ public class MyProfileActivity extends Activity implements
     public void onConnected(Bundle bundle) {
         location = locationClient.getLastLocation();
 
-        //ID DE IGNACIO ESPINOZA
-        final String id = "5437f39d7a248b0002648ad3";
+        //GET LOGIN ID
+        SharedPreferences sharedPref =
+                getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+
+        final String id = sharedPref.getString(Constants.USER_ID,"nulleitor");
         location = locationClient.getLastLocation();
 
         JobnowApplication.getInstance().getApi().getUsers(id, new Callback<User>() {
@@ -92,10 +123,8 @@ public class MyProfileActivity extends Activity implements
             @Override
             public void success(User user, Response response) {
                 System.out.println("EXITO!!");
-                //IMPRIME NULO
-                System.out.println(user.email);
-                //adapter.addUser(result);
                 Log.d("com.wuqi.jobnow", "loaded users");
+                modifyLayout(user);
 
             }
 

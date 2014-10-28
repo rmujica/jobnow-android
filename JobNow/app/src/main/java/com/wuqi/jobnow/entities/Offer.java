@@ -15,11 +15,13 @@ public class Offer implements Parcelable {
     public String price;
     public String price_type;
     public List<String> candidates;
+    public List<String> accepted;
+    public List<String> rejected;
     @SerializedName("_id") public String id;
     public Double lat;
     public Double lng;
 
-    public Offer(String user_id, String short_description, String long_description, String price, String price_type, String category, List<String> candidates, String id, Double lat, Double lng) {
+    public Offer(String user_id, String short_description, String long_description, String price, String price_type, String category, List<String> candidates, List<String> accepted, List<String> rejected, String id, Double lat, Double lng) {
         this.user_id = user_id;
         this.short_description = short_description;
         this.long_description = long_description;
@@ -27,6 +29,8 @@ public class Offer implements Parcelable {
         this.price_type = price_type;
         this.category = category;
         this.candidates = candidates;
+        this.accepted = accepted;
+        this.rejected = rejected;
         this.id = id;
         this.lat = lat;
         this.lng = lng;
@@ -40,6 +44,8 @@ public class Offer implements Parcelable {
         price_type = in.readString();
         category = in.readString();
         in.readStringList(candidates);
+        in.readStringList(accepted);
+        in.readStringList(rejected);
         id = in.readString();
         lat = in.readDouble();
         lng = in.readDouble();
@@ -59,6 +65,8 @@ public class Offer implements Parcelable {
         dest.writeString(price_type);
         dest.writeString(category);
         dest.writeStringList(candidates);
+        dest.writeStringList(accepted);
+        dest.writeStringList(rejected);
         dest.writeString(id);
         dest.writeDouble(lat);
         dest.writeDouble(lng);
