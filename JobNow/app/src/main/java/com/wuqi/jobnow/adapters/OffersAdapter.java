@@ -69,9 +69,6 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
         String accepted;
         String rejected;
 
-        System.out.println(dummy.candidates);
-        System.out.println(dummy.accepted);
-        System.out.println(dummy.rejected);
 
         while (i.hasNext()) {
             dummy = i.next();
@@ -80,6 +77,7 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
             while (j.hasNext()) {
                 candidate = j.next();
                 if(candidate.equals(id)) {
+                    dummy.state="1";
                     this.offers.add(dummy);
                 }
             }
@@ -88,6 +86,7 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
             while (g.hasNext()) {
                 accepted = g.next();
                 if(accepted.equals(id)) {
+                    dummy.state="2";
                     this.offers.add(dummy);
                 }
             }
@@ -96,6 +95,7 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
             while (h.hasNext()) {
                 rejected = h.next();
                 if(rejected.equals(id)) {
+                    dummy.state="3";
                     this.offers.add(dummy);
                 }
             }

@@ -20,6 +20,7 @@ public class Offer implements Parcelable {
     @SerializedName("_id") public String id;
     public Double lat;
     public Double lng;
+    public String state;
 
     public Offer(String user_id, String short_description, String long_description, String price, String price_type, String category, List<String> candidates, List<String> accepted, List<String> rejected, String id, Double lat, Double lng) {
         this.user_id = user_id;

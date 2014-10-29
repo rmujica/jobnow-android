@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,6 +114,7 @@ public class MyListActivity extends Activity implements
 
             //Find the job to work with
             TextView short_description = (TextView) itemView.findViewById(R.id.item_textView);
+            TextView status = (TextView) itemView.findViewById(R.id.item_status);
 
             //Change short description size
             String shorter_description;
@@ -142,6 +144,23 @@ public class MyListActivity extends Activity implements
                     imageView.setImageResource(R.drawable.categoria5a);
                     break;
             }
+
+            switch(Integer.parseInt(currentOffer.state)) {
+                case 1:
+                    status.setText("Pendiente");
+                    status.setTextColor(Color.BLACK);
+                    break;
+                case 2:
+                    status.setText("Aceptado");
+                    status.setTextColor(Color.GREEN);
+                    break;
+                case 3:
+                    status.setText("Rechazado");
+                    status.setTextColor(Color.RED);
+                    break;
+
+            }
+
             return itemView;
         }
 
@@ -185,6 +204,7 @@ public class MyListActivity extends Activity implements
                 getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
 
         final String id = sharedPref.getString(Constants.USER_ID,"nulleitor");
+
         location = locationClient.getLastLocation();
 
         myOffers.clear();

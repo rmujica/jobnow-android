@@ -29,4 +29,5 @@ dependencies {
     compile 'com.squareup.okio:okio:+'
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'com.android.support:support-v13:20.0.0'
+    compile 'com.android.support:appcompat-v7:19.+'
 }

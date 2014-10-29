@@ -21,10 +21,23 @@
         android:layout_gravity="center_horizontal"
         android:layout_toEndOf="@+id/item_imageView"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="21dp"
+        android:layout_alignTop="@+id/item_imageView"
+        android:layout_toRightOf="@+id/item_imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/item_status"
+        android:fontFamily="sans-serif-light"
+        android:textSize="15dp"
         android:layout_alignBottom="@+id/item_imageView"
-        android:layout_toRightOf="@+id/item_imageView"
-        android:layout_marginLeft="18dp"
-        android:layout_marginBottom="21dp" />
+        android:layout_alignLeft="@+id/item_textView"
+        android:layout_alignStart="@+id/item_textView"
+        android:layout_marginBottom="7dp" />
 </RelativeLayout
     >
