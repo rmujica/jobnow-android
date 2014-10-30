@@ -51,7 +51,6 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addOffers(List<Offer> offers) {
-
         this.offers.addAll(offers);
         this.total = this.offers.size();
         notifyDataSetChanged();
@@ -68,7 +67,6 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
         String candidate;
         String accepted;
         String rejected;
-
 
         while (i.hasNext()) {
             dummy = i.next();

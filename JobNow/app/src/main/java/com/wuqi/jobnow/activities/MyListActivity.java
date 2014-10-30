@@ -45,10 +45,7 @@ public class MyListActivity extends Activity implements
 
     Location location;
     LocationClient locationClient;
-
     List<Offer> myOffers = new ArrayList<Offer>();
-
-
     private OffersAdapter adapter;
 
     @Override
@@ -160,7 +157,6 @@ public class MyListActivity extends Activity implements
                     break;
 
             }
-
             return itemView;
         }
 

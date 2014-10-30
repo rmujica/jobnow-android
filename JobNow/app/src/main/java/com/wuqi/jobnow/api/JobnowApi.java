@@ -32,4 +32,7 @@ public interface JobnowApi {
     @GET("/users/{user}")
     void getUsers(@Path("user") String _id, Callback<User> cb);
 
+    @GET("/offers")
+    void getOffersByKeywords(@Query("q") String keywords, Callback<OfferSearchResult> cb);
+
 }

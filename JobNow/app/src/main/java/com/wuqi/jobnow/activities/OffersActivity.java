@@ -35,6 +35,8 @@ public class OffersActivity extends Activity implements
         GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener {
 
+
+
     @InjectView(R.id.pager)
     ViewPager pager;
 
@@ -57,7 +59,6 @@ public class OffersActivity extends Activity implements
         // load offers
         adapter = new OffersAdapter(getFragmentManager());
         pager.setAdapter(adapter);
-
         locationClient = new LocationClient(this, this, this);
     }
 
