@@ -57,45 +57,16 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addFilterOffers(List<Offer> offers, String id ) {
-        Iterator<Offer> i = offers.iterator();
-        Iterator<String> j ; //iterator for candidates list string
-        Iterator<String> g ; //iterator for accepted list string
-        Iterator<String> h ; //iterator for rejected list string
-        System.out.println(offers);
-        Offer dummy = offers.get(0);
-
-        String candidate;
-        String accepted;
-        String rejected;
-
-        while (i.hasNext()) {
-            dummy = i.next();
-
-            j = dummy.candidates.iterator();
-            while (j.hasNext()) {
-                candidate = j.next();
-                if(candidate.equals(id)) {
-                    dummy.state="1";
-                    this.offers.add(dummy);
-                }
-            }
-
-            g = dummy.accepted.iterator();
-            while (g.hasNext()) {
-                accepted = g.next();
-                if(accepted.equals(id)) {
-                    dummy.state="2";
-                    this.offers.add(dummy);
-                }
-            }
-
-            h = dummy.rejected.iterator();
-            while (h.hasNext()) {
-                rejected = h.next();
-                if(rejected.equals(id)) {
-                    dummy.state="3";
-                    this.offers.add(dummy);
-                }
+        for (Offer o : offers) {
+            if (o.candidates.contains(id)) {
+                o.state = "1";
+                this.offers.add(o);
+            } else if (o.accepted.contains(id)) {
+                o.state = "2";
+                this.offers.add(o);
+            } else if (o.rejected.contains(id)) {
+                o.state = "3";
+                this.offers.add(o);
             }
         }
 
