@@ -31,10 +31,19 @@
     <ImageView
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:id="@+id/imageView"
+        android:id="@+id/imageArrow"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/arrow_icon"
         android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp" />
+    <ImageView
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:id="@+id/imageNoSearch"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/nosearch"
+        android:layout_marginTop="35dp"
+        android:visibility="gone"
         android:layout_marginBottom="10dp" />
 
     <TextView
@@ -47,4 +56,35 @@
         android:layout_gravity="center_horizontal"
         android:textColor="#00a591"
         android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="¡Lo Sentimos! \n No se encontraron resultados"
+        android:id="@+id/textViewNoSearch"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:textColor="#c2c2c2"
+        android:gravity="center_horizontal" />
+
+    <ProgressBar android:id="@+id/progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="55dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/searchListView"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

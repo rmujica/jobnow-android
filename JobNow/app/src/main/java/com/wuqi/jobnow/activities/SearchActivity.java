@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -13,8 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -42,8 +48,10 @@ public class SearchActivity extends Activity implements
     LocationClient locationClient;
     List<Offer> myOffers = new ArrayList<Offer>();
     private OffersAdapter adapter;
+    String keyword;
 
-
+    @InjectView(R.id.progress)
+    ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,9 @@ public class SearchActivity extends Activity implements
 
         // Action Bar Changes
         setTitle("");
+        getActionBar().setIcon(R.drawable.logo);
 
+        ButterKnife.inject(this);
 
         adapter = new OffersAdapter(getFragmentManager());
         locationClient = new LocationClient(this, this, this);
@@ -62,7 +72,6 @@ public class SearchActivity extends Activity implements
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
@@ -70,14 +79,82 @@ public class SearchActivity extends Activity implements
         }
     }
 
+    //Funcion que corre con cada input de busqueda
     public void doMySearch(String query){
-        //System.out.println(adapter.getOffer(0));
+        keyword = query;
+        TextView text = (TextView) findViewById(R.id.textView2);
+        ImageView arrow_image = (ImageView) findViewById(R.id.imageArrow);
+        text.setVisibility(View.GONE);
+        arrow_image.setVisibility(View.GONE);
+        progress.setVisibility((View.VISIBLE));
+        locationClient.connect();
+    }
+
+    private void populateListView(){
+        ArrayAdapter<Offer> adapter =   new MyListAdapter();
+        ListView list = (ListView) findViewById(R.id.searchListView);
+        list.setAdapter(adapter);
+    }
+
+    private class MyListAdapter extends ArrayAdapter<Offer>{
+
+        public MyListAdapter(){
+            super( SearchActivity.this, R.layout.item_search_view, myOffers);
+            Offer d = myOffers.get(0);
+            System.out.println("ASD " + d.short_description);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //Make sure we have a view to work with( may have been given null)
+            System.out.println("GETVIEWWWWWWWWWWWWWWWWW");
+            View itemView = convertView;
+            if(itemView == null){
+                itemView = getLayoutInflater().inflate(R.layout.item_search_view,parent,false);
+            }
+
+            Offer currentOffer = myOffers.get(position);
+
+            //Find the job to work with
+            TextView short_description = (TextView) itemView.findViewById(R.id.item_textView);
+
+
+            //Change short description size
+            String shorter_description;
+            if( currentOffer.short_description.length() >= 25 )
+                shorter_description = currentOffer.short_description.substring(0,25) + "...";
+            else
+                shorter_description = currentOffer.short_description;
+            short_description.setText(shorter_description);
+
+            //Change imageView
+            ImageView imageView = (ImageView)itemView.findViewById(R.id.item_imageView);
+
+            switch(Integer.parseInt(currentOffer.category)) {
+                case 1:
+                    imageView.setImageResource(R.drawable.categoria1a);
+                    break;
+                case 2:
+                    imageView.setImageResource(R.drawable.categoria2a);
+                    break;
+                case 3:
+                    imageView.setImageResource(R.drawable.categoria3a);
+                    break;
+                case 4:
+                    imageView.setImageResource(R.drawable.categoria4a);
+                    break;
+                case 5:
+                    imageView.setImageResource(R.drawable.categoria5a);
+                    break;
+            }
+
+                return itemView;
+            }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        locationClient.connect();
     }
 
     @Override
@@ -92,18 +169,17 @@ public class SearchActivity extends Activity implements
         // get last fix
         location = locationClient.getLastLocation();
 
-        // get offers by location
-        String latlng = "%f,%f";
-        //KEYWORD DEFAULT PARA PROBAR LA BUSQUEDA
-        String key = "matematica";
-        latlng = String.format(latlng, location.getLatitude(), location.getLongitude());
-        JobnowApplication.getInstance().getApi().getOffersByKeywords(key, new Callback<OfferSearchResult>() {
+        JobnowApplication.getInstance().getApi().getOffersByKeywords(keyword, new Callback<OfferSearchResult>() {
             @Override
             public void success(OfferSearchResult offerSearchResult, Response response) {
                 List<Offer> result = offerSearchResult.result;
                 adapter.addOffers(result);
+                System.out.println("TAMAÑO ADAPTER: "+ adapter.getTotal());
                 Log.d("com.wuqi.jobnow", "loaded offers 2");
-                funcion();
+                modifyOffersList(adapter.getTotal());
+                if(adapter.getTotal() != 0)
+                    populateListView();
+                changeLayout();
             }
 
             @Override
@@ -113,9 +189,32 @@ public class SearchActivity extends Activity implements
         });
     }
 
-    public void funcion(){
-        System.out.println("FUNCIONON");
-        System.out.println(adapter.getTotal());
+    public void changeLayout() {
+
+        TextView text = (TextView) findViewById(R.id.textView2);
+        ImageView arrow_image = (ImageView) findViewById(R.id.imageArrow);
+        TextView text_no_search = (TextView) findViewById(R.id.textViewNoSearch);
+        ImageView image_no_search = (ImageView) findViewById(R.id.imageNoSearch);
+        ListView search = (ListView) findViewById(R.id.searchListView);
+
+        if( adapter.getTotal() != 0) {
+            progress.setVisibility(View.GONE);
+            search.setVisibility(View.VISIBLE);
+
+        }else if(adapter.getTotal() == 0){
+            text_no_search.setVisibility(View.VISIBLE);
+            image_no_search.setVisibility(View.VISIBLE);
+            progress.setVisibility(View.GONE);
+        }
+
+    }
+
+    public void modifyOffersList(int size) {
+        int position = 0;
+        while(position != (size)) {
+            myOffers.add(adapter.getOffer(position));
+            position = position + 1;
+        }
     }
 
     @Override

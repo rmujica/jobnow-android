@@ -57,14 +57,16 @@ public class OffersAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addFilterOffers(List<Offer> offers, String id ) {
+        System.out.println(offers.size());
+
         for (Offer o : offers) {
-            if (o.candidates.contains(id)) {
+            if (o.candidates != null && o.candidates.contains(id)) {
                 o.state = "1";
                 this.offers.add(o);
-            } else if (o.accepted.contains(id)) {
+            } else if (o.accepted != null && o.accepted.contains(id)) {
                 o.state = "2";
                 this.offers.add(o);
-            } else if (o.rejected.contains(id)) {
+            } else if (o.rejected != null && o.rejected.contains(id)) {
                 o.state = "3";
                 this.offers.add(o);
             }

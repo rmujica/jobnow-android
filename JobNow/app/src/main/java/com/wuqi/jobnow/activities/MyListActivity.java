@@ -68,8 +68,6 @@ public class MyListActivity extends Activity implements
         ArrayAdapter<Offer> adapter =   new MyListAdapter();
         ListView list = (ListView) findViewById(R.id.myJobsListView);
         list.setAdapter(adapter);
-        System.out.println("HOLAAAAAAAAAAAAAAAAA");
-
     }
     private void registerClickCallback(){
         ListView list = (ListView) findViewById(R.id.myJobsListView);
@@ -227,12 +225,10 @@ public class MyListActivity extends Activity implements
 
     public void modifyOffersList(int size) {
         int position = 0;
-
         while(position != (size)) {
             myOffers.add(adapter.getOffer(position));
             position = position + 1;
         }
-
     }
 
     @Override
