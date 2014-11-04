@@ -83,4 +83,19 @@ public class Offer implements Parcelable {
             return new Offer[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Offer offer = (Offer) o;
+
+        return user_id.equals(offer.user_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return user_id.hashCode();
+    }
 }

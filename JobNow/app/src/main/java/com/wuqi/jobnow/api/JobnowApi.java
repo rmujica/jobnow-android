@@ -29,6 +29,9 @@ public interface JobnowApi {
     @GET("/offers")
     void getOffers(@Query("l") String latlng, Callback<OfferSearchResult> cb);
 
+    @GET("/offers")
+    void getMyOffers(@Query("u") String uid, @Query("ar") String ar, Callback<OfferSearchResult> cb);
+
     @GET("/users/{user}")
     void getUsers(@Path("user") String _id, Callback<User> cb);
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="jobnow">#00a591</color>
+    <color name="jobnow_bright">#00CCB3</color>
     <color name="white">#ffffff</color>
 </resources>

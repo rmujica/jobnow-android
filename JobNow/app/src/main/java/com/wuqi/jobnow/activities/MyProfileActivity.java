@@ -18,13 +18,9 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
-import com.wuqi.jobnow.adapters.OffersAdapter;
-import com.wuqi.jobnow.adapters.UsersAdapter;
+import com.wuqi.jobnow.data.UsersAdapter;
 import com.wuqi.jobnow.entities.Constants;
-import com.wuqi.jobnow.entities.Offer;
-import com.wuqi.jobnow.entities.OfferSearchResult;
 import com.wuqi.jobnow.entities.User;
-import com.wuqi.jobnow.entities.UserSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView android:id="@+id/category"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:src="@drawable/categoria5a"
+        android:layout_centerVertical="true" />
+
+    <TextView android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal"
+        android:layout_toEndOf="@+id/category"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="21dp"
+        android:layout_alignTop="@+id/category"
+        android:layout_toRightOf="@+id/category" />
+
+    <TextView android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:fontFamily="sans-serif-light"
+        android:textSize="15sp"
+        android:layout_alignBottom="@+id/category"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title"
+        android:layout_marginBottom="7dp" />
+
+</RelativeLayout>

@@ -20,6 +20,14 @@
                 android:layout_height="300dp"
                 android:name="com.google.android.gms.maps.MapFragment"/>
 
+            <ImageView android:id="@+id/ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_launcher"/>
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
