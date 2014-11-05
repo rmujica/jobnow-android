@@ -13,6 +13,7 @@
     <string name="R.string.cant_enter_business_type">No puedes ingresar a la aplicación si eres un usuario tipo empleador.</string>
     <string name="label">Label</string>
     <string name="hint">Hint</string>
-
+    <string name="search_title">Search</string>
+    <string name="title_activity_search_result">Search result</string>
 
 </resources>

@@ -1,9 +1,14 @@
 package com.wuqi.jobnow.activities;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -19,6 +27,7 @@ import com.wuqi.jobnow.JobnowApplication;
 import com.wuqi.jobnow.R;
 import com.wuqi.jobnow.data.OffersLayoutManager;
 import com.wuqi.jobnow.data.RecyclingOffersAdapter;
+import com.wuqi.jobnow.data.SearchResultAdapter;
 import com.wuqi.jobnow.entities.Offer;
 import com.wuqi.jobnow.entities.OfferSearchResult;
 
@@ -34,6 +43,9 @@ public class OffersActivity extends Activity implements
         GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener {
 
+    private static final int TRIGGER_SEARCH = 0x1;
+    private final long SEARCH_TRIGGER_DELAY_IN_MS = 1000;
+
     @InjectView(R.id.list)
     RecyclerView list;
 
@@ -43,6 +55,55 @@ public class OffersActivity extends Activity implements
     Location location;
     LocationClient locationClient;
     RecyclingOffersAdapter adapter;
+
+    Handler queryHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == TRIGGER_SEARCH) {
+                Log.d("com.wuqi.jobnow", "msg rcv, doing search: " + msg.obj);
+                JobnowApplication.getInstance().getApi().getOffersByKeywords((String) msg.obj,
+                        new retrofit.Callback<OfferSearchResult>() {
+                    @Override
+                    public void success(OfferSearchResult offerSearchResult, Response response) {
+                        Log.d("com.wuqi.jobnow", "search done, displaying");
+                        // show result in query box
+                        String[] columns = new String[] {"_ID", "SUGGEST_COLUMN_TEXT_1"};
+                        Object[] temp = new Object[] {0, "default"};
+                        int i = 0;
+
+                        MatrixCursor cursor = new MatrixCursor(columns);
+
+                        for (Offer o : offerSearchResult.result) {
+                            temp[0] = i;
+                            temp[1] = o.short_description;
+                            Log.d("com.wuqi.jobnow", "search result: " + o.short_description);
+                            cursor.addRow(temp);
+                            i++;
+                        }
+
+                        String[] from = {"SUGGEST_COLUMN_TEXT_1"};
+                        int[] to = {R.id.title};
+
+                        SearchManager manager =
+                                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+                        searchView.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
+                        /*searchView.setSuggestionsAdapter(
+                                new SearchResultAdapter(
+                                        OffersActivity.this, cursor, offerSearchResult.result));*/
+                        searchView.setSuggestionsAdapter(
+                                new SimpleCursorAdapter(
+                                        OffersActivity.this, R.layout.detail_offer_slim, cursor, from, to, 0));
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+            }
+        }
+    };
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +138,32 @@ public class OffersActivity extends Activity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.offers, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (!s.isEmpty()) {
+                    Message msg = new Message();
+                    msg.what = TRIGGER_SEARCH;
+                    msg.obj = s;
+                    queryHandler.removeMessages(TRIGGER_SEARCH);
+                    queryHandler.sendMessageDelayed(msg, SEARCH_TRIGGER_DELAY_IN_MS);
+                }
+                return true;
+            }
+        });
+
         return true;
     }
 
