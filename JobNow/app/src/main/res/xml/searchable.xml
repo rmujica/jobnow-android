@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="@string/title_activity_offers"
-    android:hint="@string/hint">
+    android:hint="@string/hint"
+    android:imeOptions="actionDone"
+    android:searchSuggestThreshold="3"
+    android:searchSuggestIntentAction="android.intent.action.VIEW"
+    android:searchSuggestAuthority="com.wuqi.jobnow.data.search_content_provider">
 </searchable>

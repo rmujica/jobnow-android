@@ -35,7 +35,8 @@ public interface JobnowApi {
     @GET("/users/{user}")
     void getUsers(@Path("user") String _id, Callback<User> cb);
 
+    // synchronous
     @GET("/offers")
-    void getOffersByKeywords(@Query("q") String keywords, Callback<OfferSearchResult> cb);
+    OfferSearchResult getOffersByKeywords(@Query("q") String keywords);
 
 }
